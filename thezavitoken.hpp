@@ -2,7 +2,6 @@
 
 #include <eosio/eosio.hpp>
 #include <eosio/asset.hpp>
-#include <eosio/system.hpp>
 #include "../zeosio/include/zeosio.hpp"
 
 using namespace zeos::groth16;
@@ -12,22 +11,6 @@ using namespace std;
 #define TXD_MINT        1
 #define TXD_ZTRANSFER   2
 #define TXD_BURN        3
-
-CONTRACT thezeostoken : public contract
-{
-    public:
-
-    thezeostoken(name self,
-                 name code, 
-                 datastream<const char *> ds);
-
-    ACTION verifyproof(const string& type,
-                       const name& code,
-                       const name& id,
-                       const string& proof,     
-                       const string& inputs);
-    using verifyproof_action = action_wrapper<"verifyproof"_n, &thezeostoken::verifyproof>;
-};
 
 CONTRACT thezavitoken : public contract
 {
