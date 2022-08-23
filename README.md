@@ -1,42 +1,34 @@
-# ZEOS Token Contract
+# The ZAVI Token
 
-This is the smart contract for the [ZEOS](https://zeos.one) protocol for private and untraceable transactions on the EOS Blockchain. This contract is deployed to the [Kylin Testnet](https://kylin.bloks.io/account/thezeostoken) and the [EOS Mainnet](https://bloks.io/account/thezeostoken).
+This is a sample application for private transactions on EOSIO using the Groth16/BLS12-381 SNARK verifier of the ZEOS token contract. This contract is deployed to the [Kylin Testnet](https://kylin.bloks.io/account/thezavitoken) and is part of the new [ZEOS Demo application](https://zeos.one/demo).
 
 See also:
-- [The ZEOS Book](https://mschoenebeck.github.io/zeos-orchard/) (including a full protocol specification)
 - [ZEOS Sapling](https://github.com/mschoenebeck/zeos-sapling)
-- [ZEOS Orchard](https://github.com/mschoenebeck/zeos-orchard)
+- [JS Wallet (zavi)](https://github.com/mschoenebeck/zeos-wallet/tree/zavi)
 
 ## Description
-This contract issues the ZEOS tokens as well as all zAsset token types that will be added to the protocol in the future. This contract features the 'verifyproof' action which verfies zk-SNARKs. It currently supports the [Groth16](https://electriccoin.co/blog/bellman-zksnarks-in-rust/) proving system as well as [Halo2](https://zcash.github.io/halo2/index.html). The 'verifyproof' action depends on the [vCPU](https://liquidapps.io/vcpu) service of LiquidApps. Check out the [ZEOS Verifier](https://github.com/mschoenebeck/zeos-verifier) to learn more about the vCPU module this contract depends on.
+This is a sample application for private transactions on EOSIO using the Groth16/BLS12-381 SNARK verifier of the ZEOS token contract. The ZAVI token contract has no DAPP dependencies nor does it need any DAPP tokens staked in order to use the SNARK verifier. All DAPP resources are being paid for by the ZEOS token contract. In order to call the `verifyproof` action of the ZEOS token contract it makes use of [EOSIO action wrappers](https://developers.eos.io/manuals/eosio.cdt/v1.7/how-to-guides/how_to_create_and_use_action_wrappers).
 
-This contract is built on [EOSIO](https://eos.io/) and [Liquidapps' DAPP Network](https://liquidapps.io/) services.
+This contract is built on [EOSIO](https://eos.io/).
 
 ## Getting Started
 
 Clone this repository:
 
 ```
-git clone https://github.com/mschoenebeck/thezeostoken.git
-cd thezeostoken
+git clone https://github.com/mschoenebeck/thezavitoken.git
+cd thezavitoken
 ```
 
-Build the project with Zeus:
+Build the contract:
 
 ```
-zeus compile
-```
-
-Run the unit tests with Zeus:
-
-```
-zeus test
+eosio-cpp -abigen thezavitoken.cpp
 ```
 
 ### Dependencies
 
 - [EOSIO Contract Development Toolkit (CDT)](https://github.com/EOSIO/eosio.cdt/releases)
-- [LiquidApps Zeus SDK](https://liquidapps.io/zeus)
 
 ## Help
 If you need help join us on [Telegram](https://t.me/ZeosOnEos).
