@@ -72,7 +72,7 @@ void thezavitoken::mint(const checksum256& epk_s,
 
     // verify proof
     thezeostoken::verifyproof_action thezeostoken_verifyproof("thezeostoken"_n, {get_self(), "active"_n});
-    thezeostoken_verifyproof.send("groth16", _self, "zeosmintnote"_n, proof, inputs);
+    thezeostoken_verifyproof.send("groth16", "thezeostoken"_n, "zeosmintnote"_n, proof, inputs);
 
     // burn a from user's balance
     sub_balance(user, a);
@@ -128,7 +128,7 @@ void thezavitoken::ztransfer(const checksum256& epk_s,
     
     // verify proof
     thezeostoken::verifyproof_action thezeostoken_verifyproof("thezeostoken"_n, {get_self(), "active"_n});
-    thezeostoken_verifyproof.send("groth16", _self, "transfernote"_n, proof, inputs);
+    thezeostoken_verifyproof.send("groth16", "thezeostoken"_n, "transfernote"_n, proof, inputs);
     
     // add z_b and z_c to tree
     insert_into_merkle_tree(z_b, false);
@@ -187,7 +187,7 @@ void thezavitoken::burn(const checksum256& epk_s,
 
     // verify proof
     thezeostoken::verifyproof_action thezeostoken_verifyproof("thezeostoken"_n, {get_self(), "active"_n});
-    thezeostoken_verifyproof.send("groth16", _self, "zeosburnnote"_n, proof, inputs);
+    thezeostoken_verifyproof.send("groth16", "thezeostoken"_n, "zeosburnnote"_n, proof, inputs);
     
     // add z_c to tree
     insert_into_merkle_tree(z_c, true);
