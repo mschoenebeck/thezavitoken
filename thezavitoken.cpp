@@ -22,11 +22,8 @@ void thezavitoken::init(const uint64_t& depth)
     gs_t gs(_self, _self.value);
 //    for(auto it = gs.begin(); it != gs.end(); )
 //        it = gs.erase(it);
-#ifdef USE_VRAM
-    const uint64_t id = 0;
-#else
+
     const uint64_t id = 1;
-#endif
     // reset indices in global stats table
     auto stats = gs.find(id);
     if(stats == gs.end())
@@ -81,11 +78,7 @@ void thezavitoken::mint(const checksum256& epk_s,
     insert_into_merkle_tree(z_a, true);
 
     gs_t gs(_self, _self.value);
-#ifdef USE_VRAM
-    auto stats = gs.find(0);
-#else
     auto stats = gs.find(1);
-#endif
     check(stats != gs.end(), "global stats table not initialized");
 
     // add tx data
@@ -116,11 +109,7 @@ void thezavitoken::ztransfer(const checksum256& epk_s,
 
     // check if nullifier already exists in list, if not add it
     nf_t nf(_self, _self.value);
-#ifdef USE_VRAM
-    auto it = nf.find(nf_a);
-#else
     auto it = nf.find((uint64_t)*((uint32_t*)nf_a.extract_as_byte_array().data()));
-#endif
     check(it == nf.end(), "nullifier exists => note has been spent already");
     nf.emplace(_self, [&](auto& n) {
         n.val = nf_a;
@@ -135,11 +124,7 @@ void thezavitoken::ztransfer(const checksum256& epk_s,
     insert_into_merkle_tree(z_c, true);
 
     gs_t gs(_self, _self.value);
-#ifdef USE_VRAM
-    auto stats = gs.find(0);
-#else
     auto stats = gs.find(1);
-#endif
     check(stats != gs.end(), "global stats table not initialized");
 
     // add tx data
@@ -175,11 +160,7 @@ void thezavitoken::burn(const checksum256& epk_s,
 
     // check if nullifier already exists in list, if not add it
     nf_t nf(_self, _self.value);
-#ifdef USE_VRAM
-    auto it = nf.find(nf_a);
-#else
     auto it = nf.find((uint64_t)*((uint32_t*)nf_a.extract_as_byte_array().data()));
-#endif
     check(it ==  nf.end(), "nullifier exists => note has been spent already");
     nf.emplace(_self, [&](auto& n) {
         n.val = nf_a;
@@ -196,11 +177,7 @@ void thezavitoken::burn(const checksum256& epk_s,
     add_balance(user, b, user);
 
     gs_t gs(_self, _self.value);
-#ifdef USE_VRAM
-    auto stats = gs.find(0);
-#else
     auto stats = gs.find(1);
-#endif
     check(stats != gs.end(), "global stats table not initialized");
 
     // add tx data
@@ -394,11 +371,7 @@ void thezavitoken::insert_into_merkle_tree(const checksum256& val, const bool& a
 {
     // fetch global stats
     gs_t gs(_self, _self.value);
-#ifdef USE_VRAM
-    auto stats = gs.find(0);
-#else
     auto stats = gs.find(1);
-#endif
     check(stats != gs.end(), "global stats table not initialized");
 
     // calculate array index of next free leaf in >local< tree
@@ -482,11 +455,7 @@ bool thezavitoken::is_root_valid(const checksum256& root)
     
     // check if root is in deque of most recent roots
     gs_t gs(_self, _self.value);
-#ifdef USE_VRAM
-    auto stats = gs.find(0);
-#else
     auto stats = gs.find(1);
-#endif
     check(stats != gs.end(), "global stats table not initialized");
 
     for(auto r = stats->mt_roots.begin(); r != stats->mt_roots.end(); ++r)
@@ -525,11 +494,7 @@ void thezavitoken::add_txdata_to_list(const uint8_t& type,
 {
     gs_t gs(_self, _self.value);
     txd_t txd(_self, _self.value);
-#ifdef USE_VRAM
-    auto stats = gs.find(0);
-#else
     auto stats = gs.find(1);
-#endif
     check(stats != gs.end(), "global stats table not initialized");
     txd.emplace(_self, [&](auto& tx) {
         tx.id = stats->tx_count;
