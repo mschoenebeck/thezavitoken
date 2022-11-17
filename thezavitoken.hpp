@@ -4,7 +4,7 @@
 #include <eosio/asset.hpp>
 #include "../zeosio/include/zeosio.hpp"
 
-using namespace zeos::groth16;
+using namespace zeosio::groth16;
 using namespace eosio;
 using namespace std;
 

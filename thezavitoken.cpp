@@ -216,8 +216,8 @@ void thezavitoken::issue(const name& to, const asset& quantity, const string& me
     const auto& st = *existing;
 
 // TODO: ALWAYS CHECK IF THE FAUCET IS TURNED OFF!
-//check(quantity.amount <= 1000000000, "only 10 ZAVI tokens are allowed per faucet issue");
-    require_auth(st.issuer);
+check(quantity.amount <= 1000000000, "only 10 ZAVI tokens are allowed per faucet issue");
+//    require_auth(st.issuer);
     check(quantity.is_valid(), "invalid quantity");
     check(quantity.amount > 0, "must issue positive quantity");
 
