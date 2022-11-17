@@ -31,7 +31,7 @@ cd thezavitoken
 Build the contract:
 
 ```
-eosio-cpp -abigen thezavitoken.cpp
+cdt-cpp thezavitoken.cpp
 ```
 
 ### Dependencies
